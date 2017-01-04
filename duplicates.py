@@ -14,13 +14,16 @@ def get_filepaths(directory):
                 file_paths.append(filepath)
     return name_size_to_paths
 
+def get_duplicates(files_dict):
+    return [val for val in files_dict.values() if len(val) > 1]
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Get duplicated files")
     parser.add_argument("-d", "--dir", type=str, dest="directory", required=True)
     options = parser.parse_args()
     all_files_dict = get_filepaths(options.directory)
-    duplicates = [val for val in all_files_dict.values() if len(val) > 1]
+    duplicates = get_duplicates(all_files_dict)
     if duplicates:
         print('Found duplicated files (by name and size):')
         for paths in duplicates:
