@@ -4,14 +4,12 @@ from collections import defaultdict
 
 
 def get_filepaths(directory):
-    file_paths = []
     name_size_to_paths = defaultdict(list)
     for root, directories, files in os.walk(directory):
         for filename in files:
             filepath = os.path.join(root, filename)
             if os.path.exists(filepath):
                 name_size_to_paths[os.path.basename(filepath) + ' ' + str(os.path.getsize(filepath))].append(filepath)
-                file_paths.append(filepath)
     return name_size_to_paths
 
 def get_duplicates(files_dict):
